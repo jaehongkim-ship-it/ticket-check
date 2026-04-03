@@ -102,6 +102,26 @@ CSE-1041 Lambda 기능 테스트 (~2026-04-06)
 점검 11건 | 라운드 1회 | 자동수정 0건 | 수동조치 0건
 ```
 
+## 발송 전 검증
+
+메시지를 조립한 뒤, 발송하기 전에 반드시 검증 스크립트를 실행하세요.
+이 스크립트는 플레인 텍스트 티켓 번호, 마크다운 링크, 백틱 감싼 티켓 등 잘못된 형식을 잡아냅니다.
+
+```bash
+python3 .claude/skills/slack-jira-report/scripts/validate_message.py --file /tmp/slack_message.txt
+```
+
+### 검증 워크플로우
+
+1. 메시지를 `/tmp/slack_message.txt`에 저장
+2. `validate_message.py --file /tmp/slack_message.txt` 실행
+3. 종료 코드가 0이면 → slack_send_message로 발송
+4. 종료 코드가 1이면 → 출력된 오류를 읽고 메시지를 수정한 뒤 다시 1번부터 반복
+5. 최대 3회 재시도 후에도 실패하면 오류 내용을 메시지에 포함하여 발송
+6. 발송 완료 후 `rm /tmp/slack_message.txt`로 임시 파일 삭제
+
+검증을 건너뛰지 마세요. 이 스크립트가 잡는 가장 흔한 실수는 `CSE-1041` 같은 플레인 텍스트 티켓 번호인데, Slack에서는 클릭할 수 없어서 사용자 경험이 나빠집니다.
+
 ## 발송
 
 slack_send_message 사용:

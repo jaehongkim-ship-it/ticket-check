@@ -170,6 +170,14 @@ slack_send_message 사용:
 - auto_transitions 비어있으면 "Progress 미비" 섹션 생략
 - 문제 있을 때만 하단 요약 라인 포함
 - 메시지는 딱 1건만 발송
+
+### 발송 전 검증 (필수)
+메시지를 조립한 뒤 발송 전에 반드시 검증 스크립트를 실행하세요:
+1. 메시지를 /tmp/slack_message.txt에 저장
+2. python3 .claude/skills/slack-jira-report/scripts/validate_message.py --file /tmp/slack_message.txt 실행
+3. 종료코드 0이면 → slack_send_message로 발송
+4. 종료코드 1이면 → 오류를 읽고 메시지 수정 후 재검증 (최대 3회)
+5. 발송 완료 후 rm /tmp/slack_message.txt로 임시 파일 삭제
 ```
 
 ---
