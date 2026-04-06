@@ -13,7 +13,7 @@
 ## 스케줄 트리거
 
 - Trigger ID: `trig_01T3J8SDKYQcKsNU7LodsBzJ`
-- 스케줄: 평일 18:20 KST (`20 9 * * 1-5` UTC)
+- 스케줄: 평일 18:01 KST (`1 9 * * 1-5` UTC)
 - MCP: Atlassian Rovo + Slack
 - 알림: Slack DM (User ID: `U0AM4NM1U01`)
 - 관리: https://claude.ai/code/scheduled/trig_01T3J8SDKYQcKsNU7LodsBzJ
